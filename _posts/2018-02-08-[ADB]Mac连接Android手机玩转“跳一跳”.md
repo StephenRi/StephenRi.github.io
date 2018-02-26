@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      "[ADB]Mac连接Android手机玩转“跳一跳”
+title:      "[ADB]Mac连接Android手机玩转跳一跳
 subtitle:   "使用Mac控制手机自动跳一跳"
 date:       2018-02-08 12:00:00
 author:     "Stephen.Ri"
@@ -13,7 +13,7 @@ tags:
 
 ## 下载ADB
 
-Android调试桥（ adb ）是一个开发工具，帮助安卓设备和个人计算机之间的通信。 这种通信大多是在USB电缆下进行，但是也支持Wi-Fi连接。 adb 还可被用来与电脑上运行的安卓模拟器交流通信。 adb 对于安卓开发来说就像一把“瑞士军刀”。
+Android调试桥(adb)是一个开发工具，帮助安卓设备和个人计算机之间的通信。 这种通信大多是在USB电缆下进行，但是也支持Wi-Fi连接。 adb 还可被用来与电脑上运行的安卓模拟器交流通信。 adb 对于安卓开发来说就像一把“瑞士军刀”。
 
 我们可以通过Brew安装ADB
 

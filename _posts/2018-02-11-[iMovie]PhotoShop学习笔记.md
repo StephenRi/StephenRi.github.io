@@ -2,7 +2,7 @@
 layout:     post
 title:      "[iMovie]PhotoShop学习笔记"
 subtitle:   "记录一些PhotoShop的实用技巧"
-date:       2017-12-04 12:00:00
+date:       2018-02-11 12:00:00
 author:     "Stephen.Ri"
 header-img: "img/movie-bg.jpg"
 catalog: true
