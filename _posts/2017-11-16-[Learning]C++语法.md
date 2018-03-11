@@ -1,13 +1,13 @@
 ---
 layout:     post
-title:      "[C++]C++语法"
+title:      "[Learning]C++语法"
 subtitle:   "C++中的一些语法使用"
 date:       2017-11-16 12:00:00
 author:     "Stephen.Ri"
 header-img: "img/read-bg.jpg"
 catalog: true
 tags:
-    - C++
+    - Learning
 ---
 
 ## extern 全局变量
@@ -69,4 +69,5 @@ int main()
     return 0;
 }
 ```
+
 

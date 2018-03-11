@@ -82,6 +82,8 @@ Memcached的内存管理机制有3个重要的概念：**slabclass**，**slab**�
 > item    -->    slab    -->    slabclass  
 > 格子    -->    A4纸    -->    本子
 
+item的growth factor为1.25。
+
 #### 内存分配模型
 
  ![Memcached内存管理]({{site.baseurl}}/img/imgInBlog/mem2.png)
