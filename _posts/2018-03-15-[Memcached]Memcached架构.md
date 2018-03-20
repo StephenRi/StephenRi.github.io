@@ -2,7 +2,7 @@
 layout:     post
 title:      "[Memcached]Memcached架构"
 subtitle:   "Memcached学习笔记"
-date:       2018-02-23 12:00:00
+date:       2018-03-15 12:00:00
 author:     "Stephen.Ri"
 header-img: "img/CPU-bg.jpg"
 catalog: true
