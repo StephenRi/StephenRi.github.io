@@ -155,7 +155,7 @@ void HeapAdjust(int *data,int i,int size)  //调整堆
             swap(data[i], data[maxIndex]);
             HeapAdjust(data, maxIndex, size);    //递归，避免调整之后以maxIndex为父节点的子树不是堆 
         }
-    }        
+    }  
 }
 ```
 
