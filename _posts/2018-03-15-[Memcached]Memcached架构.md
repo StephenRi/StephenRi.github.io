@@ -186,3 +186,9 @@ Memcached采用了一个伪item的方法来使LRU队列支持随机访问。它�
 
 3. 每种颜色是一个功能系列
  ![Memcached系统架构图]({{site.baseurl}}/img/imgInBlog/mem3.png)
+
+## Cocytus读写流程
+
+下图是Cocytus(Memcached + RSCodes)系统读写流程。
+
+ ![Cocytus系统架构图]({{site.baseurl}}/img/imgInBlog/mem4.png)

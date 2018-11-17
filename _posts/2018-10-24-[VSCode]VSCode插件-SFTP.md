@@ -27,6 +27,7 @@ SFTP原意是Secure File Transfer Protocol（安全文件传输协议）。
 按照自己的服务器进行配置，配置说明如下：
 
 ```
+[
 {
     "name": "configName1",                  //这份配置的名字
     "protocol": "sftp",                     //协议
@@ -51,6 +52,7 @@ SFTP原意是Secure File Transfer Protocol（安全文件传输协议）。
 {
     "name": "configName2"                   //多台服务器或者多个目录时这么用
 }
+]
 ```
 
 ## 使用SFTP插件
