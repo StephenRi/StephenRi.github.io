@@ -33,16 +33,16 @@ permalink: /games/gomoku.html
 
 <script>
 	var gomoku = document.getElementById("chess");
-	var convasLenght;
+	var canvasLenght;
 	if (document.body.scrollWidth  < document.body.scrollHeight) {
-		convasLenght = document.body.scrollWidth ;
-		convasLenght = convasLenght - 40;
+		canvasLenght = document.body.scrollWidth ;
+		canvasLenght = canvasLenght - 40;
 	} else {
 		canvasLenght = document.body.scrollHeight;
-		convasLenght = convasLenght * 0.68;
+		canvasLenght = canvasLenght * 0.68;
 	}
 	
-	gomoku.setAttribute("width", convasLenght);
-	gomoku.setAttribute("height", convasLenght);
+	gomoku.setAttribute("width", canvasLenght);
+	gomoku.setAttribute("height", canvasLenght);
     var context = gomoku.getContext('2d');
 </script>
