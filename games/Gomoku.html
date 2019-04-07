@@ -21,9 +21,16 @@ permalink: /games/gomoku.html
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 				<div class="site-heading" id="tag-heading">
 					<h3 id="message"> 请君与我一战 </h3>
-					<canvas id="chess" width="400" height="400"></canvas>
+					<canvas id="chess"> </canvas>
 				</div>
 			</div>
 		</div>
 	</div>
 </header>
+
+<script>
+	var gomoku = document.getElementById("chess");
+	gomoku.setAttribute("width", screen.availWidth);
+	gomoku.setAttribute("height", screen.availWidth);
+    var context = gomoku.getContext('2d');
+</script>
