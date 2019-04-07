@@ -30,7 +30,12 @@ permalink: /games/gomoku.html
 
 <script>
 	var gomoku = document.getElementById("chess");
-	gomoku.setAttribute("width", screen.availWidth - 40);
-	gomoku.setAttribute("height", screen.availWidth - 40);
+	var convasLenght = screen.availHeight;
+	if (screen.availWidth < convasLenght) {
+		convasLenght = screen.availWidth;
+	}
+	convasLenght = convasLenght - 40
+	gomoku.setAttribute("width", convasLenght);
+	gomoku.setAttribute("height", convasLenght);
     var context = gomoku.getContext('2d');
 </script>
