@@ -28,16 +28,20 @@ permalink: /games/gomoku.html
 </header>
 -->
 
-<h3 id="message"> 请君与我一战 </h3>
+<h3 id="message" align="center"> 请君与我一战 </h3>
 <canvas id="chess"> </canvas>
 
 <script>
 	var gomoku = document.getElementById("chess");
-	var convasLenght = document.body.scrollHeight ;
-	if (document.body.scrollWidth  < convasLenght) {
+	var convasLenght;
+	if (document.body.scrollWidth  < document.body.scrollHeight) {
 		convasLenght = document.body.scrollWidth ;
+		convasLenght = convasLenght - 40;
+	} else {
+		canvasLenght = document.body.scrollHeight;
+		convasLenght = convasLenght * 0.68;
 	}
-	convasLenght = convasLenght - 40
+	
 	gomoku.setAttribute("width", convasLenght);
 	gomoku.setAttribute("height", convasLenght);
     var context = gomoku.getContext('2d');
