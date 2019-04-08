@@ -21,17 +21,26 @@ permalink: /games/gomoku.html
 
 <script>
 	var gomoku = document.getElementById("chess");
-	var canvasLenght;
+	var canvasLength;
+	var gridNum = 15;
 	//区分不同设备
 	if (window.innerWidth < window.innerHeight) {
-		canvasLenght = window.innerWidth ;
-		canvasLenght = canvasLenght - 20;
+		canvasLength = window.innerWidth ;
+		canvasLength = canvasLength - 20;
 	} else {
-		canvasLenght = window.innerHeight;
-		canvasLenght = canvasLenght * 0.68;
+		canvasLength = window.innerHeight;
+		canvasLength = canvasLength * 0.68;
 	}
-	gomoku.setAttribute("width", canvasLenght);
-	gomoku.setAttribute("height", canvasLenght);
+	var stepLength = canvasLength / gridNum;
+	gomoku.setAttribute("width", canvasLength);
+	gomoku.setAttribute("height", canvasLength);
 	var context = gomoku.getContext('2d');
 	
+	var drawChessboard = function() {
+		for(var i = 0; i < gridNum; i++) {
+			context.moveTo(stepLength / 2 + i * stepLength, stepLength / 2);
+			context.lineTo(stepLength / 2 + i * stepLength, stepLength / 2 +  (gridNum - 1 )* stepLength);
+			context.stroke();
+		}
+	}
 </script>
