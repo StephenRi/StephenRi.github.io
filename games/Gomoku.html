@@ -8,7 +8,7 @@ permalink: /games/gomoku.html
 <style type='text/css'>
 	canvas {
 		display: block;
-		margin: 20px auto;
+		margin: 5px auto;
 		box-shadow: -2px -2px 2px #efefef, 5px 5px 5px #b9b9b9;
 		cursor: pointer;
 	}
@@ -22,15 +22,16 @@ permalink: /games/gomoku.html
 <script>
 	var gomoku = document.getElementById("chess");
 	var canvasLenght;
-	if (document.body.scrollWidth  < document.body.scrollHeight) {
-		canvasLenght = document.body.scrollWidth ;
-		canvasLenght = canvasLenght - 40;
+	//区分不同设备
+	if (body.clientWidth  < body.clientHeight) {
+		canvasLenght = body.clientWidth ;
+		canvasLenght = canvasLenght - 15;
 	} else {
-		canvasLenght = document.body.scrollHeight;
+		canvasLenght = body.clientHeight;
 		canvasLenght = canvasLenght * 0.68;
 	}
-	
 	gomoku.setAttribute("width", canvasLenght);
 	gomoku.setAttribute("height", canvasLenght);
-    var context = gomoku.getContext('2d');
+	var context = gomoku.getContext('2d');
+	
 </script>
