@@ -58,11 +58,12 @@ permalink: /games/gomoku.html
 
 	//绘制棋子
 	function drawChessman(chessX, chessY, whoami) {
-		var chessSize = 0.8;
+		var chessSize = 0.8;												//棋子相比棋盘格子的大小
 		context.beginPath();
 		context.arc(stepLength / 2 + chessX * stepLength, stepLength / 2 + chessY * stepLength, stepLength / 2 * chessSize, 0, Math.PI * 2);
 		context.closePath();
 
+		//棋子渐变
 		var radialOffset = stepLength * 0.1;
 		var radial = context.createRadialGradient(stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, stepLength / 2 * chessSize, stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, 0);
 		if (whoami) {
@@ -72,8 +73,6 @@ permalink: /games/gomoku.html
 			radial.addColorStop(0,'#d1d1d1');
             radial.addColorStop(1,'#f9f9f9');
 		}
-		
-		context.fillStyle = radial;
 
         context.fillStyle = radial;
 		context.fill();
