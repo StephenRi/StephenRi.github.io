@@ -23,11 +23,11 @@ permalink: /games/gomoku.html
 	var gomoku = document.getElementById("chess");
 	var canvasLenght;
 	//区分不同设备
-	if (document.body.offsetWidth  < document.body.offsetHeight) {
-		canvasLenght = document.body.offsetWidth ;
+	if (window.innerWidthh  < window.innerHeight) {
+		canvasLenght = window.innerWidth ;
 		canvasLenght = canvasLenght - 15;
 	} else {
-		canvasLenght = document.body.offsetHeight;
+		canvasLenght = window.innerHeight;
 		canvasLenght = canvasLenght * 0.68;
 	}
 	gomoku.setAttribute("width", canvasLenght);
