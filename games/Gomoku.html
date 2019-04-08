@@ -21,8 +21,8 @@ permalink: /games/gomoku.html
 
 <script>
 	var gomoku = document.getElementById("chess");
-	var canvasLength;
-	var gridNum = 15;
+	var canvasLength;														//画布长宽
+	var gridNum = 15;														//棋盘格子数目
 	//区分不同设备
 	if (window.innerWidth < window.innerHeight) {
 		canvasLength = window.innerWidth ;
@@ -31,7 +31,7 @@ permalink: /games/gomoku.html
 		canvasLength = window.innerHeight;
 		canvasLength = canvasLength * 0.68;
 	}
-	var stepLength = canvasLength / gridNum;
+	var stepLength = canvasLength / gridNum;								//每个格子的长宽
 	gomoku.setAttribute("width", canvasLength);
 	gomoku.setAttribute("height", canvasLength);
 	var context = gomoku.getContext('2d');
