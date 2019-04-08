@@ -32,16 +32,21 @@ permalink: /games/gomoku.html
 		canvasLength = canvasLength * 0.68;
 	}
 	var stepLength = canvasLength / gridNum;								//每个格子的长宽
-	gomoku.setAttribute("width", canvasLength);
-	gomoku.setAttribute("height", canvasLength);
-	var context = gomoku.getContext('2d');
-	context.strokeStyle = '#bfbfbf';										//画笔颜色
 	
+	window.onload = function() {
+		gomoku.setAttribute("width", canvasLength);
+		gomoku.setAttribute("height", canvasLength);
+		var context = gomoku.getContext('2d');
+		context.strokeStyle = '#bfbfbf';										//画笔颜色
+
         drawChessBoard();
-    
+    }
 
 	//绘制棋盘
-	var drawChessboard = function() {
+	function drawChessboard() {
+		context.moveTo(15, 15);
+		context.lineTo(100,100);
+		context.stroke();
 		for(var i = 0; i < gridNum; i++) {
 			context.moveTo(stepLength / 2 + i * stepLength, stepLength / 2);
 			context.lineTo(stepLength / 2 + i * stepLength, stepLength / 2 +  (gridNum - 1 )* stepLength);
