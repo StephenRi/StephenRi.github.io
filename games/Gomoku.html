@@ -39,6 +39,8 @@ permalink: /games/gomoku.html
 	var context = gomoku.getContext('2d');
 	context.strokeStyle = '#bfbfbf';										//画笔颜色
 	drawChessboard();
+	drawChessman(1, 1, true);
+	drawChessman(2, 1, false);
     
 	//绘制棋盘
 	function drawChessboard() {
@@ -52,5 +54,28 @@ permalink: /games/gomoku.html
 			context.lineTo(stepLength / 2 + (gridNum - 1) * stepLength, tmpY);
 			context.stroke();
 		}
+	}
+
+	//绘制棋子
+	function drawChessman(chessX, chessY, whoami) {
+		var chessSize = 0.8;
+		context.beginPath();
+		context.arc(stepLength / 2 + chessX * stepLength, stepLength / 2 + chessY * stepLength, stepLength / 2 * chessSize, 0, Math.PI * 2);
+		context.closePath();
+
+		var radialOffset = stepLength * 0.1;
+		var radial = context.createRadialGradient(stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, stepLength / 2 * chessSize, stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, 0);
+		if (whoami) {
+			radial.addColorStop(0,'#0a0a0a');
+			radial.addColorStop(1,'#636766');
+		} else {
+			radial.addColorStop(0,'#d1d1d1');
+            radial.addColorStop(1,'#f9f9f9');
+		}
+		
+		context.fillStyle = radial;
+
+        context.fillStyle = radial;
+		context.fill();
 	}
 </script>
