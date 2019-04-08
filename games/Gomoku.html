@@ -38,17 +38,18 @@ permalink: /games/gomoku.html
 	gomoku.setAttribute("height", canvasLength);
 	var context = gomoku.getContext('2d');
 	context.strokeStyle = '#bfbfbf';										//画笔颜色
-
 	drawChessboard();
     
 	//绘制棋盘
 	function drawChessboard() {
 		for(var i = 0; i < gridNum; i++) {
-			context.moveTo(stepLength / 2 + i * stepLength, stepLength / 2);
-			context.lineTo(stepLength / 2 + i * stepLength, stepLength / 2 +  (gridNum - 1 ) * stepLength);
+			var tmpX = stepLength / 2 + i * stepLength;
+			context.moveTo(tmpX, stepLength / 2);
+			context.lineTo(tmpX, stepLength / 2 +  (gridNum - 1 ) * stepLength);
 			context.stroke();
-			context.moveTo(stepLength / 2, stepLength / 2 + i * stepLength);
-			context.lineTo(stepLength / 2 + (gridNum - 1) * stepLength, stepLength / 2 + i * stepLength);
+			var tmpY = tmpX;
+			context.moveTo(stepLength / 2, tmpY);
+			context.lineTo(stepLength / 2 + (gridNum - 1) * stepLength, tmpY);
 			context.stroke();
 		}
 	}
