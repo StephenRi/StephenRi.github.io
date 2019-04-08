@@ -35,6 +35,7 @@ permalink: /games/gomoku.html
 	gomoku.setAttribute("width", canvasLength);
 	gomoku.setAttribute("height", canvasLength);
 	var context = gomoku.getContext('2d');
+	context.strokeStyle = '#bfbfbf';
 	drawChessboard();
 
 	var drawChessboard = function() {
