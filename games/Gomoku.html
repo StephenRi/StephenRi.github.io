@@ -35,7 +35,8 @@ permalink: /games/gomoku.html
 	gomoku.setAttribute("width", canvasLength);
 	gomoku.setAttribute("height", canvasLength);
 	var context = gomoku.getContext('2d');
-	
+	drawChessboard();
+
 	var drawChessboard = function() {
 		for(var i = 0; i < gridNum; i++) {
 			context.moveTo(stepLength / 2 + i * stepLength, stepLength / 2);
