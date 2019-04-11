@@ -146,6 +146,7 @@ permalink: /games/gomoku.html
 		var bestPosX = 0;
 		var bestPosY = 0;
 
+		//遍历每一个位置，给这个位置的每一种解法打分
 		for (var i = 0; i < gridNum; i++) {
 			for (var j = 0; j < gridNum; j++) {
 				if (chessBoard[i][j] == 0) {
