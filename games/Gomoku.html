@@ -87,7 +87,7 @@ permalink: /games/gomoku.html
 			for (var k = 0; k < winCount; k++) {
 				if (winEnum[tmpX][tmpY][k] == true) {
 					userWin[k] ++;
-					robotWin[k] = -1;
+					robotWin[k] = 100;
 					if (userWin[k] == 5) {
 						message.innerHTML = "Congratulations, You Win!";
 						isOver = true;
@@ -144,6 +144,7 @@ permalink: /games/gomoku.html
 									break;
 								case 3:
 									robotScore[i][j] += 200;
+									break;
 								case 4:
 									robotScore[i][j] += 9999;
 									break;
@@ -151,19 +152,8 @@ permalink: /games/gomoku.html
 						}
 					}
 
-					if (userScore[i][j] > bestScore) {
-						bestScore = userScore[i][j];
-						bestPosX = i;
-						bestPosY = j;
-					} else if (userScore[i][j] == bestScore && robotScore[i][j] > robotScore[bestPosX][bestPosY]) {
-						bestPosX = i;
-						bestPosY = j;
-					}
-					if (robotScore[i][j] > bestScore) {
-						bestScore = robotScore[i][j];
-						bestPosX = i;
-						bestPosY = j;
-					} else if (robotScore[i][j] == bestScore && userScore[i][j] > userScore[bestPosX][bestPosY]) {
+					if (userScore[i][j] + robotScore[i][j] > bestScore) {
+						bestScore = userScore[i][j] + robotScore[i][j];
 						bestPosX = i;
 						bestPosY = j;
 					}
@@ -171,7 +161,7 @@ permalink: /games/gomoku.html
 			}
 		}
 
-		message.innerHTML = "userScore:" + userScore[bestPosX][bestPosY] + ", robotScore:" + robotScore[bestPosX][bestPosY];
+		//message.innerHTML = "userScore:" + userScore[bestPosX][bestPosY] + ", robotScore:" + robotScore[bestPosX][bestPosY];
 		chessBoard[bestPosX][bestPosY] = 2;
 		drawChessman(bestPosX, bestPosY, isMe);
 
@@ -179,7 +169,7 @@ permalink: /games/gomoku.html
 		for (var k = 0; k < winCount; k++) {
 			if (winEnum[bestPosX][bestPosY][k] == true) {
 				robotWin[k] ++;
-				userWin[k] = -1;
+				userWin[k] = 100;
 				if (robotWin[k] == 5) {
 					message.innerHTML = "You Lose!";
 					isOver = true;
