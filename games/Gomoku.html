@@ -16,11 +16,12 @@ permalink: /games/gomoku.html
 
 <br>
 <br>
-<h3 id="message" align="center"> 五子棋 </h3>
-<canvas id="chess"> </canvas>
+<h3 id="message" align="center"> Gomoku </h3>
+<canvas id="gomoku"> </canvas>
 
 <script>
-	var gomoku = document.getElementById("chess");
+	var message = document.getElementById("message");
+	var gomoku = document.getElementById("gomoku");
 	var canvasLength;														//画布长宽
 	var gridNum = 15;														//棋盘格子数目
 	//区分不同设备
@@ -32,15 +33,163 @@ permalink: /games/gomoku.html
 		canvasLength = canvasLength * 0.68;
 	}
 	var stepLength = canvasLength / gridNum;								//每个格子的长宽
-	
 
 	gomoku.setAttribute("width", canvasLength);
 	gomoku.setAttribute("height", canvasLength);
 	var context = gomoku.getContext('2d');
 	context.strokeStyle = '#bfbfbf';										//画笔颜色
 	drawChessboard();
-	drawChessman(1, 1, true);
-	drawChessman(2, 1, false);
+
+	var isMe = true;														//用户为1，电脑为0
+	var isOver = false;														//是否决出胜负
+
+	var chessBoard = [];													//chessBoard[i][j]表示棋盘上是否有子，无子为0，用户为1，计算机为2
+	for (var i = 0; i < gridNum; i++) {
+		chessBoard[i] = [];
+		for (var j = 0; j < gridNum; j++) {
+			chessBoard[i][j] = 0;
+		}
+	}
+
+	var winEnum = [];														//winEnum[i][j][k]表示第k种赢法所需要的5个子的位置，i为横坐标，j为纵坐标
+	for (var i = 0; i < gridNum; i++) {
+		winEnum[i] = [];
+		for (var j = 0; j < gridNum; j++) {
+			winEnum[i][j] = [];
+		}
+	}
+	var winCount = 0;														//一共有多少种赢法
+	getWinCount();
+	
+	var userWin = [];														//userWin[i]表示用户第i种赢法已经落了几个子
+	var robotWin = [];
+	for (var i = 0; i < winCount; i++) {
+		userWin[i] = 0;
+		robotWin[i] = 0;
+	}
+
+
+	//用户落子
+	gomoku.onclick = function(e) {
+		if (isOver) {
+			return;
+		}
+		if (!isMe) {
+			return;
+		}
+		var tmpX = Math.floor(e.offsetX / stepLength);
+		var tmpY = Math.floor(e.offsetY / stepLength);
+		if (chessBoard[tmpX][tmpY] == 0) {
+			chessBoard[tmpX][tmpY] = 1;
+			drawChessman(tmpX, tmpY, isMe);
+
+			//遍历所有赢法，给自己的赢法加一粒棋子，把对方的赢法设置为不可能
+			for (var k = 0; k < winCount; k++) {
+				if (winEnum[tmpX][tmpY][k] == true) {
+					userWin[k] ++;
+					robotWin[k] = -1;
+					if (userWin[k] == 5) {
+						message.innerHTML = "Congratulations, You Win!";
+						isOver = true;
+					}
+				}
+			}
+			if (!isOver) {
+				isMe = !isMe;
+				robotAct();
+			}
+		}
+	}
+
+	function robotAct() {
+		var userScore = [];
+		var robotScore = [];
+		for (var i = 0; i < gridNum; i++) {
+			userScore[i] = [];
+			robotScore[i] = [];
+			for (var j = 0; j < gridNum; j++) {
+				userScore[i][j] = 0;
+				robotScore[i][j] = 0;
+			}
+		}
+		var bestScore = 0;
+		var bestPosX = 0;
+		var bestPosY = 0;
+
+		for (var i = 0; i < gridNum; i++) {
+			for (var j = 0; j < gridNum; j++) {
+				if (chessBoard[i][j] == 0) {
+					for (var k = 0; k < winCount; k++) {
+						if (winEnum[i][j][k]) {
+							switch (userWin[k]) {
+								case 1:
+									userScore[i][j] += 2;
+									break;
+								case 2:
+									userScore[i][j] += 20;
+									break;
+								case 3:
+									userScore[i][j] += 100;
+									break;
+								case 4:
+									userScore[i][j] += 1000;
+									break;
+							}
+							switch (robotWin[k]) {
+								case 1:
+									robotScore[i][j] += 4;
+									break;
+								case 2:
+									robotScore[i][j] += 22;
+									break;
+								case 3:
+									robotScore[i][j] += 200;
+								case 4:
+									robotScore[i][j] += 9999;
+									break;
+							}
+						}
+					}
+
+					if (userScore[i][j] > bestScore) {
+						bestScore = userScore[i][j];
+						bestPosX = i;
+						bestPosY = j;
+					} else if (userScore[i][j] == bestScore && robotScore[i][j] > robotScore[bestPosX][bestPosY]) {
+						bestPosX = i;
+						bestPosY = j;
+					}
+					if (robotScore[i][j] > bestScore) {
+						bestScore = robotScore[i][j];
+						bestPosX = i;
+						bestPosY = j;
+					} else if (robotScore[i][j] == bestScore && userScore[i][j] > userScore[bestPosX][bestPosY]) {
+						bestPosX = i;
+						bestPosY = j;
+					}
+				}
+			}
+		}
+
+		message.innerHTML = "userScore:" + userScore[bestPosX][bestPosY] + ", robotScore:" + robotScore[bestPosX][bestPosY];
+		chessBoard[bestPosX][bestPosY] = 2;
+		drawChessman(bestPosX, bestPosY, isMe);
+
+		//遍历所有赢法，给机器人的赢法加一粒棋子，把对方的赢法设置为不可能
+		for (var k = 0; k < winCount; k++) {
+			if (winEnum[bestPosX][bestPosY][k] == true) {
+				robotWin[k] ++;
+				userWin[k] = -1;
+				if (robotWin[k] == 5) {
+					message.innerHTML = "You Lose!";
+					isOver = true;
+				}
+			}
+		}
+		if (!isOver) {
+			isMe = !isMe;
+		}
+	}
     
 	//绘制棋盘
 	function drawChessboard() {
@@ -76,5 +225,48 @@ permalink: /games/gomoku.html
 
         context.fillStyle = radial;
 		context.fill();
+	}
+
+	//统计所有赢法
+	function getWinCount() {
+		//横线赢法
+		for (var i = 0; i < gridNum - 4; i++) {
+			for (var j = 0; j < gridNum; j++) {
+				for (var k = 0; k < 5; k++) {
+					winEnum[i + k][j][winCount] = true;
+				}
+				winCount ++;
+			}
+		}
+
+		//竖线赢法
+		for (var i = 0; i < gridNum; i++) {
+			for (var j = 0; j < gridNum - 4; j++) {
+				for (var k = 0; k < 5; k++) {
+					winEnum[i][j + k][winCount] = true;
+				}
+				winCount ++;
+			}
+		}
+
+		//反斜线赢法
+		for (var i = 0; i < gridNum - 4; i++) {
+			for (var j = 0; j < gridNum - 4; j++) {
+				for (var k = 0; k < 5; k++) {
+					winEnum[i + k][j + k][winCount] = true;
+				}
+				winCount ++;
+			}
+		}
+
+		//正斜线赢法
+		for (var i = 0; i < gridNum - 4; i++) {
+			for (var j = 4; j < gridNum; j++) {
+				for (var k = 0; k < 5; k++) {
+					winEnum[i + k][j - k][winCount] = true;
+				}
+				winCount ++;
+			} 
+		}
 	}
 </script>
