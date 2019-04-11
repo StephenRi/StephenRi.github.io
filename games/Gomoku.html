@@ -12,12 +12,35 @@ permalink: /games/gomoku.html
 		box-shadow: -2px -2px 2px #efefef, 5px 5px 5px #b9b9b9;
 		cursor: pointer;
 	}
+	.button {
+		display: inline-block;
+		padding: 15px 25px;
+		font-size: 24px;
+		cursor: pointer;
+		text-align: center;   
+		text-decoration: none;
+		outline: none;
+		color: #fff;
+		background-color: #4CAF50;
+		border: none;
+		border-radius: 15px;
+		box-shadow: 0 9px #999;
+	}
+
+	.button:hover {background-color: #3e8e41}
+
+	.button:active {
+		background-color: #3e8e41;
+		box-shadow: 0 5px #666;
+		transform: translateY(4px);
+	}
 </style>
 
 <br>
 <br>
 <h3 id="message" align="center"> Gomoku </h3>
 <canvas id="gomoku"> </canvas>
+<div align="center"><button id="restart" class="button">RESTART</button></div>
 
 <script>
 	var message = document.getElementById("message");
@@ -68,6 +91,13 @@ permalink: /games/gomoku.html
 		robotWin[i] = 0;
 	}
 
+	var robotLastX = -1;													//机器人的上一次落子位置
+	var robotLastY = -1;
+
+	//重启
+	restart.onclick = function(e) {
+		window.location.reload();
+	}
 
 	//用户落子
 	gomoku.onclick = function(e) {
@@ -81,7 +111,7 @@ permalink: /games/gomoku.html
 		var tmpY = Math.floor(e.offsetY / stepLength);
 		if (chessBoard[tmpX][tmpY] == 0) {
 			chessBoard[tmpX][tmpY] = 1;
-			drawChessman(tmpX, tmpY, isMe);
+			drawChessman(tmpX, tmpY, 1);
 
 			//遍历所有赢法，给自己的赢法加一粒棋子，把对方的赢法设置为不可能
 			for (var k = 0; k < winCount; k++) {
@@ -163,7 +193,12 @@ permalink: /games/gomoku.html
 
 		//message.innerHTML = "userScore:" + userScore[bestPosX][bestPosY] + ", robotScore:" + robotScore[bestPosX][bestPosY];
 		chessBoard[bestPosX][bestPosY] = 2;
-		drawChessman(bestPosX, bestPosY, isMe);
+		if (robotLastX != -1 && robotLastY != -1) {
+			drawChessman(robotLastX, robotLastY, 0);
+		}
+		drawChessman(bestPosX, bestPosY, 2);
+		robotLastX = bestPosX;
+		robotLastY = bestPosY;
 
 		//遍历所有赢法，给机器人的赢法加一粒棋子，把对方的赢法设置为不可能
 		for (var k = 0; k < winCount; k++) {
@@ -205,12 +240,17 @@ permalink: /games/gomoku.html
 		//棋子渐变
 		var radialOffset = stepLength * 0.1;
 		var radial = context.createRadialGradient(stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, stepLength / 2 * chessSize, stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, 0);
-		if (whoami) {
+		if (whoami == 1) {
 			radial.addColorStop(0,'#0a0a0a');
 			radial.addColorStop(1,'#636766');
-		} else {
+		}
+		if (whoami == 0) {
 			radial.addColorStop(0,'#d1d1d1');
             radial.addColorStop(1,'#f9f9f9');
+		}
+		if (whoami == 2) {
+			radial.addColorStop(0, '#aaaaaa');
+			radial.addColorStop(1, '#dddddd');
 		}
 
         context.fillStyle = radial;
