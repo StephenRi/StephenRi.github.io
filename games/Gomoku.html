@@ -154,10 +154,10 @@ permalink: /games/gomoku.html
 						if (winEnum[i][j][k]) {
 							switch (userWin[k]) {
 								case 1:
-									userScore[i][j] += 2;
+									userScore[i][j] += 3;
 									break;
 								case 2:
-									userScore[i][j] += 20;
+									userScore[i][j] += 30;
 									break;
 								case 3:
 									userScore[i][j] += 100;
@@ -168,10 +168,10 @@ permalink: /games/gomoku.html
 							}
 							switch (robotWin[k]) {
 								case 1:
-									robotScore[i][j] += 4;
+									robotScore[i][j] += 6;
 									break;
 								case 2:
-									robotScore[i][j] += 22;
+									robotScore[i][j] += 33;
 									break;
 								case 3:
 									robotScore[i][j] += 200;
