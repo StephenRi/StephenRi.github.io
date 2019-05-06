@@ -12,6 +12,36 @@ permalink: /games/gomokupvp.html
 		box-shadow: -2px -2px 2px #efefef, 5px 5px 5px #b9b9b9;
 		cursor: pointer;
 	}
+
+	.input {
+		box-sizing: border-box;
+		text-align: center;
+		font-size: 16px;
+		height: 44px;
+		width: 270px;
+		border-radius:4px;
+		border:1px solid #c8cccf;
+		color:#6a6f77;
+	}
+	.button-link {
+		background-color: #008CBA; /* Green */
+		border: none;
+		border-radius:12px;
+		color: white;
+		padding: 14px 15px;
+		text-align: center;
+		text-decoration: none;
+		display: inline-block;
+		font-size: 16px;
+	}
+	.button-link:hover {
+		background-color: #4CAF50
+	}
+	.button-link:active {
+		background-color: #4CAF50;
+		transform: translateY(4px);
+	}
+
 	.button {
 		display: inline-block;
 		padding: 14px 15px;
@@ -40,14 +70,40 @@ permalink: /games/gomokupvp.html
 <br>
 <h3 id="message" align="center"> Gomoku </h3>
 <canvas id="gomoku"> </canvas>
+<form align="center" class="well form-inline" onsubmit="return false;">
+	<input id="roomNo" class="input" type="text" placeholder="Room NO."/>
+	<button type="button" onClick="linkRoom()" class="button-link" id="link">Link Room</button>
+</form>
 <div align="center"><button id="restart" class="button">RESTART</button></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script>
+	var userId = 'user' + Math.floor((Math.random()*1000)+1);
+	var roomNo;
+	var userRole;
 	var socket = io.connect('http://144.168.59.201:9092');
+	//var socket = io.connect('http://localhost:9092');
+	
 	socket.on('connect', function() {
-		message.innerHTML = "Congratulations, You Win!";
+		message.innerHTML = "Connected to my laji server, enjoy";
+	});
+
+	function linkRoom() {
+		roomNo = $('#roomNo').val();
+		$('#roomNo').val('');
+
+		var jsonObject = { 
+			userId: userId,
+            roomNo: roomNo
+		};
+		socket.emit('linkEvent', jsonObject);
+	}
+
+	socket.on('linkEventAck', function(data){
+		if (data.number == 1 && userId == data.userId) {
+			message.innerHTML = "ROOM: " + data.roomNo + ". You play black. Wait for the other player.";
+		}
 	});
 </script>
