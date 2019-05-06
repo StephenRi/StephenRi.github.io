@@ -153,6 +153,7 @@ permalink: /games/gomokupvp.html
 		turn = data.turn;
 		if (turn == userRole) {
 			drawChessman(data.chessX, data.chessY, data.userRole);
+			chessBoard[data.chessX][data.chessY] = data.userRole;
 			if (isOver) {
 				message.innerHTML = "Game Over. Loser";
 				return;
