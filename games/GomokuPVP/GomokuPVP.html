@@ -317,8 +317,8 @@ permalink: /games/gomokupvp.html
 		var radialOffset = stepLength * 0.1;
 		var radial = context.createRadialGradient(stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, stepLength / 2 * chessSize, stepLength / 2 + chessX * stepLength + radialOffset, stepLength / 2 + chessY * stepLength - radialOffset, 0);
 		if (whoami == "black") {
-			radial.addColorStop(0,'#0a0a0a');
-			radial.addColorStop(1,'#636766');
+			radial.addColorStop(0,'#000000');
+			radial.addColorStop(1,'#666666');
 		}
 		if (whoami == "black-last") {
 			radial.addColorStop(0,'#555555');
