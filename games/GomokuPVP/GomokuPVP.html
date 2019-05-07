@@ -111,6 +111,9 @@ permalink: /games/gomokupvp.html
 		}
 	}
 
+	//上一次对手的位置
+	var lastX = -1;
+	var lastY = -1;
 
 	var userId = 'user' + Math.floor((Math.random()*1000)+1);
 	var roomNo;
@@ -152,7 +155,9 @@ permalink: /games/gomokupvp.html
 		isOver = data.isOver;
 		turn = data.turn;
 		if (turn == userRole) {
-			drawChessman(data.chessX, data.chessY, data.userRole);
+			drawChessman(data.chessX, data.chessY, data.userRole + "-last");
+			lastX = data.chessX;
+			lastY = data.chessY;
 			chessBoard[data.chessX][data.chessY] = data.userRole;
 			if (isOver) {
 				message.innerHTML = "Game Over. Loser";
@@ -181,6 +186,11 @@ permalink: /games/gomokupvp.html
 			}
 			if (userRole == "write") {
 				turn = "black";
+			}
+
+			//把对手的上一次落的子涂成正常颜色
+			if (lastX != -1 && lastY != -1) {
+				drawChessman(lastX, lastY, turn);
 			}
 
 			//如果结束了
@@ -310,11 +320,15 @@ permalink: /games/gomokupvp.html
 			radial.addColorStop(0,'#0a0a0a');
 			radial.addColorStop(1,'#636766');
 		}
-		if (whoami == "write") {
-			radial.addColorStop(0,'#d1d1d1');
-            radial.addColorStop(1,'#f9f9f9');
+		if (whoami == "black-last") {
+			radial.addColorStop(0,'#555555');
+			radial.addColorStop(1,'#bbbbbb');
 		}
-		if (whoami == "gray") {
+		if (whoami == "write") {
+			radial.addColorStop(0,'#dddddd');
+            radial.addColorStop(1,'#ffffff');
+		}
+		if (whoami == "write-last") {
 			radial.addColorStop(0, '#aaaaaa');
 			radial.addColorStop(1, '#dddddd');
 		}
