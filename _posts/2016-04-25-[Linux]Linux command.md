@@ -23,6 +23,8 @@ tags:
   `find . -type f -size +800M -print0 | xargs -0 du -h`  
 修改配置文件  
   `vim .bashrc`  
+实时查看日志  
+  `tail -f *.log`  
 
 # GDB调试
 进入GDB  
